@@ -10,13 +10,13 @@ class LTIUtils {
     //
     // LAUNCH FUNCTIONS
     //
-    function is_basic_lti_request() {
+    public function is_basic_lti_request() {
         $good_message_type = "basic-lti-launch-request" == $_POST['lti_message_type'];
         $good_lti_version = "LTI-1p0" == $_POST['lti_version'];
         return $good_message_type && $good_lti_version;
     }
 
-    function validate_oauth_signature($oauth_consumer_key, $shared_secret, $request_url) {
+    public function validate_oauth_signature($oauth_consumer_key, $shared_secret, $request_url) {
         $store = new TrivialOAuthDataStore();
         $store->add_consumer($oauth_consumer_key, $shared_secret);
 
@@ -29,7 +29,7 @@ class LTIUtils {
         $server->verify_request($request);
     }
 
-    function is_valid_oauth_signature($oauth_consumer_key, $shared_secret, $request_url) {
+    public function is_valid_oauth_signature($oauth_consumer_key, $shared_secret, $request_url) {
         try {
             $this->validate_oauth_signature($oauth_consumer_key, $shared_secret, $request_url);
             return true;

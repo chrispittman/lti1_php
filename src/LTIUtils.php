@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisPittman\Lti1;
+namespace Chrispittman\Lti1;
 
 use DOMDocument;
 use DOMException;

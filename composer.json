@@ -1,0 +1,12 @@
+{
+  "name": "chrispittman/lti1-php",
+  "description": "Utility tools for LTI 1.x interactions",
+  "keywords": ["lti"],
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {"Chrispittman\\Lti1\\": "src/"}
+  },
+  "require": {
+    "php": ">5.4.0"
+  }
+}

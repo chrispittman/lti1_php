@@ -234,7 +234,7 @@ class OAuthRequest {
   }
 
 
-  public function sign_request(OAuthSignatureMethod $signature_method, OAuthConsumer $consumer, OAuthToken $token) {
+  public function sign_request(OAuthSignatureMethod $signature_method, OAuthConsumer $consumer, OAuthToken $token=null) {
     $this->set_parameter(
       "oauth_signature_method",
       $signature_method->get_name(),
@@ -244,7 +244,7 @@ class OAuthRequest {
     $this->set_parameter("oauth_signature", $signature, false);
   }
 
-  public function build_signature(OAuthSignatureMethod $signature_method, OAuthConsumer $consumer, OAuthToken $token) {
+  public function build_signature(OAuthSignatureMethod $signature_method, OAuthConsumer $consumer, OAuthToken $token=null) {
     $signature = $signature_method->build_signature($this, $consumer, $token);
     return $signature;
   }

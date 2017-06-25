@@ -34,7 +34,7 @@ class OAuthSignatureMethod_RSA_SHA1 extends OAuthSignatureMethod {
     throw new \Exception("fetch_private_cert not implemented");
   }
 
-  public function build_signature(OAuthRequest &$request, OAuthConsumer $consumer, OAuthToken $token) {
+  public function build_signature(OAuthRequest &$request, OAuthConsumer $consumer, OAuthToken $token=null) {
     $base_string = $request->get_signature_base_string();
     $request->base_string = $base_string;
 
@@ -53,7 +53,7 @@ class OAuthSignatureMethod_RSA_SHA1 extends OAuthSignatureMethod {
     return base64_encode($signature);
   }
 
-  public function check_signature(OAuthRequest &$request, OAuthConsumer $consumer, OAuthToken $token, $signature) {
+  public function check_signature(OAuthRequest &$request, OAuthConsumer $consumer, OAuthToken $token=null, $signature) {
     $decoded_sig = base64_decode($signature);
 
     $base_string = $request->get_signature_base_string();

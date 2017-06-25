@@ -17,7 +17,7 @@ abstract class OAuthSignatureMethod {
   }
 
   abstract public function get_name();
-  abstract public function build_signature(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token);
+  abstract public function build_signature(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token=null);
 }
 
 

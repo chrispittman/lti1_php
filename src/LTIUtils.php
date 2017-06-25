@@ -80,7 +80,6 @@ class LTIUtils {
 
         $req = OAuthRequest::from_consumer_and_token($consumer, NULL, 'POST', $lis_outcome_service_url, $params);
         $req->sign_request($hmac_method, $consumer, NULL);
-        $params = $req->get_parameters();
         $header = $req->to_header();
         $header .= "\nContent-type: application/xml";
 
@@ -101,10 +100,8 @@ class LTIUtils {
                 throw new Exception("No success code from outcome service for ".$lti_sourced_id);
             }
         } catch (Exception $e) {
-            Log::error("Exception while talking to outcome service for ".$lti_sourced_id);
-            Log::error($ext_response);
-            Log::error($e);
-            throw $e;
+            $msg = "Exception while talking to outcome service for ".$lti_sourced_id." -> ".$ext_response;
+            throw new \Exception($msg);
         }
     }
 
@@ -145,7 +142,6 @@ class LTIUtils {
 
         $req = OAuthRequest::from_consumer_and_token($consumer, NULL, 'POST', $lis_outcome_service_url, $params);
         $req->sign_request($hmac_method, $consumer, NULL);
-        $params = $req->get_parameters();
         $header = $req->to_header();
         $header .= "\nContent-type: application/xml";
 
@@ -166,10 +162,8 @@ class LTIUtils {
                 throw new Exception("No success code from outcome service for ".$lti_sourced_id);
             }
         } catch (Exception $e) {
-            Log::error("Exception while talking to outcome service for ".$lti_sourced_id);
-            Log::error($ext_response);
-            Log::error($e);
-            throw $e;
+            $msg = "Exception while talking to outcome service for ".$lti_sourced_id." -> ".$ext_response;
+            throw new \Exception($msg);
         }
     }
 
@@ -233,12 +227,9 @@ class LTIUtils {
 
         $resp = curl_exec($ch);
         if ($resp === FALSE) {
-            Log::error("CUrl error ".curl_errno($ch).": ".curl_error($ch)." ".$url." ".json_encode($params));
             throw new Exception("Error code ".curl_getinfo($ch, CURLINFO_HTTP_CODE));
         }
         if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 500) {
-            //Log::error("Error code ".curl_getinfo($ch, CURLINFO_HTTP_CODE)." from ".$url);
-            Log::error("Response: ".$resp." ".$url." ".json_encode($params));
             throw new Exception("Error code ".curl_getinfo($ch, CURLINFO_HTTP_CODE));
         }
         curl_close($ch);

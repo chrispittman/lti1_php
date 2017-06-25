@@ -1,10 +1,6 @@
 # lti1_php
 Composer package for LTI 1.x interactions in PHP
 
-## TODO
-* Document XML, curl, ? PHP extension requirements in composer.json
-* Remove remaining Laravelisms (Log calls in LTIUtils)
-
 ## Usage example
 
 Here's a sample Laravel controller which uses this to launch an LTI app.

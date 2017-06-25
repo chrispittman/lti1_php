@@ -7,6 +7,8 @@
     "psr-4": {"Chrispittman\\Lti1\\": "src/"}
   },
   "require": {
-    "php": ">5.4.0"
+    "php": ">5.4.0",
+    "ext-xml":"*",
+    "ext-curl":"*"
   }
 }

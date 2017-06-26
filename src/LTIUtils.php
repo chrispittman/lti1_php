@@ -41,7 +41,7 @@ class LTIUtils {
     //
     // OUTCOME SERVICE FUNCTIONS
     //
-    public function update_outcome_in_canvas($oauth_consumer_key, $shared_secret, $lti_sourced_id, $lis_outcome_service_url, $score)
+    public function update_outcome($oauth_consumer_key, $shared_secret, $lti_sourced_id, $lis_outcome_service_url, $score)
     {
         if ($score>1) {$score = 1;}
         if ($score<0) {$score = 0;}
@@ -113,7 +113,7 @@ class LTIUtils {
         }
     }
 
-    public function delete_outcome_in_canvas($oauth_consumer_key, $shared_secret, $lti_sourced_id, $lis_outcome_service_url) {
+    public function delete_outcome($oauth_consumer_key, $shared_secret, $lti_sourced_id, $lis_outcome_service_url) {
         $xmlRequest =
             "<?xml version = \"1.0\" encoding = \"UTF-8\"?>
 <imsx_POXEnvelopeRequest xmlns=\"http://www.imsglobal.org/services/ltiv1p1/xsd/imsoms_v1p0\">

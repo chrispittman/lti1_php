@@ -2,6 +2,10 @@
 
 namespace Chrispittman\Lti1;
 
+use IMSGlobal\LTI\OAuth\OAuthConsumer;
+use IMSGlobal\LTI\OAuth\OAuthDataStore;
+use IMSGlobal\LTI\OAuth\OAuthToken;
+
 /**
  * A Trivial memory-based store - no support for tokens
  */

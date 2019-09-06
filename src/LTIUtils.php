@@ -6,6 +6,11 @@ use DOMDocument;
 use DOMException;
 use Exception;
 
+use IMSGlobal\LTI\OAuth\OAuthConsumer;
+use IMSGlobal\LTI\OAuth\OAuthServer;
+use IMSGlobal\LTI\OAuth\OAuthRequest;
+use IMSGlobal\LTI\OAuth\OAuthSignatureMethod_HMAC_SHA1;
+
 class LTIUtils {
     //
     // LAUNCH FUNCTIONS
@@ -22,7 +27,7 @@ class LTIUtils {
 
         $server = new OAuthServer($store);
 
-        $method = new OAuthSignatureMethodHMACSHA1();
+        $method = new OAuthSignatureMethod_HMAC_SHA1();
         $server->add_signature_method($method);
         $request = OAuthRequest::from_request("POST", $request_url);
 
@@ -75,7 +80,7 @@ class LTIUtils {
         $hash = base64_encode(sha1($xmlRequest, TRUE));
         $params = array('oauth_body_hash'=>$hash);
 
-        $hmac_method = new OAuthSignatureMethodHMACSHA1();
+        $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
         $consumer = new OAuthConsumer($oauth_consumer_key, $shared_secret, NULL);
 
         $req = OAuthRequest::from_consumer_and_token($consumer, NULL, 'POST', $lis_outcome_service_url, $params);
@@ -83,14 +88,14 @@ class LTIUtils {
         $header = $req->to_header();
         $header .= "\nContent-type: application/xml";
 
-        $ext_response = LTIUtils::do_post_request($lis_outcome_service_url, $xmlRequest, $header);
+        $ext_response = $this->do_post_request($lis_outcome_service_url, $xmlRequest, $header);
 
         try {
             $ext_doc = new DOMDocument();
             set_error_handler(array($this,'HandleXmlError'));
             $ext_doc->loadXML($ext_response);
             restore_error_handler();
-            $ext_nodes = LTIUtils::domnode_to_array($ext_doc->documentElement);
+            $ext_nodes = $this->domnode_to_array($ext_doc->documentElement);
             if (!isset($ext_nodes['imsx_POXHeader']['imsx_POXResponseHeaderInfo']['imsx_statusInfo']['imsx_codeMajor'])) {
                 throw new Exception("No imsx_codeMajor from outcome service for ".$lti_sourced_id);
             }
@@ -137,7 +142,7 @@ class LTIUtils {
         $hash = base64_encode(sha1($xmlRequest, TRUE));
         $params = array('oauth_body_hash'=>$hash);
 
-        $hmac_method = new OAuthSignatureMethodHMACSHA1();
+        $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
         $consumer = new OAuthConsumer($oauth_consumer_key, $shared_secret, NULL);
 
         $req = OAuthRequest::from_consumer_and_token($consumer, NULL, 'POST', $lis_outcome_service_url, $params);

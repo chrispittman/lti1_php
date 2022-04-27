@@ -1,6 +1,8 @@
 # lti1_php
 Composer package for LTI 1.x interactions in PHP
 
+⚠️ **DEPRECATED**: with the impending retirement of LTI 1.0/1.1/1.2, nobody should use this anymore.
+
 ## Usage example
 
 Here's a sample Laravel controller which uses this to launch an LTI app.
